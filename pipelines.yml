@@ -1,0 +1,4 @@
+- pipeline.id: windows
+  path.config: "/opt/Logstash-Pipelines/windows"
+- pipeline.id: bro-json
+  path.config: "/opt/Logstash-Pipelines/bro-json"
