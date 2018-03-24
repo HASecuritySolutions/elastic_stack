@@ -39,7 +39,7 @@ services:
       - LOG_LEVEL=error
     ports:
       - 5044:5044
-      - 5044:5044/udp
+      - 5045:5045
       - 6050:6050
     volumes:
       - /opt/Logstash-Pipelines/pipelines.yml:/usr/share/logstash/config/pipelines.yml:ro
