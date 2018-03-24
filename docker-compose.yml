@@ -44,6 +44,7 @@ services:
     volumes:
       - /opt/Logstash-Pipelines/pipelines.yml:/usr/share/logstash/config/pipelines.yml:ro
       - /opt/Logstash-Pipelines:/opt/Logstash-Pipelines:ro
+      - /etc/nsm/rules:/etc/nsm/rules:ro
       - ls1:/usr/share/logstash/data
     environment:
       LS_JAVA_OPTS: "-Xmx2g -Xms2g"
