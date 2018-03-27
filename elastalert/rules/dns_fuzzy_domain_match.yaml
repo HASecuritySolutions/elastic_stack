@@ -3,11 +3,12 @@ type: frequency
 index: logstash-bro-*
 
 realert:
-  minutes: 0
+  minutes: 5
 
 num_events: 1
 timeframe:
   hours: 1
+query_key: highest_registered_domain
 
 filter:
 - query:
