@@ -85,7 +85,7 @@ services:
     volumes:
       - ./cron/crontab:/etc/crontab:ro
       - ./curator:/etc/curator:ro
-      - ./cron/cron.log:/var/log/cron.log
+      - ./cron/logs:/var/log
     networks:
       - esnet
   elastalert:
