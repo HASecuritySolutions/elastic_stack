@@ -1,6 +1,6 @@
 # This is the folder that contains the rule yaml files
 # Any .yaml file will be loaded as a rule
-rules_folder: /opt/rules
+rules_folder: /etc/elastalert/rules
 
 # How often ElastAlert will query Elasticsearch
 # The unit can be anything from weeks to seconds

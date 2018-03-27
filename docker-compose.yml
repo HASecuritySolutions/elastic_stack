@@ -89,17 +89,12 @@ services:
     networks:
       - esnet
   elastalert:
-    image: ivankrizsan/elastalert
+    image: hasecuritysolutions/elastalert
     container_name: elastalert
     depends_on:
       - elasticsearch
-    environment:
-      - ELASTICSEARCH_HOST=elasticsearch
-      - SET_CONTAINER_TIMEZONE=True
-      - CONTAINER_TIMEZONE=America/Chicago
     volumes:
-      - ./elastalert/rules:/opt/rules:ro
-      - ./elastalert/elastalert_config.yaml:/opt/config/elastalert_config.yaml:ro
+      - ./elastalert:/etc/elastalert:ro
     networks:
       - esnet
     
