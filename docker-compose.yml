@@ -74,7 +74,7 @@ services:
     networks:
       - esnet
   curator:
-    image: bobrik/docker-curator
+    image: bobrik/curator
     container_name: curator
     depends_on:
       - elasticsearch
