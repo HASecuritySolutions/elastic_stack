@@ -12,7 +12,7 @@ timeframe:
 filter:
 - query:
     query_string:
-        query: "event_type:dns AND highest_registered_domain:labmeinc.com~ -highest_registered_domain:labmeinc.com AND highest_registered_domain:labmeinc.internal~ -highest_registered_domain:labmeinc.internal"
+        query: "event_type:dns AND ((highest_registered_domain:labmeinc.com~ -highest_registered_domain:labmeinc.com) OR (highest_registered_domain:labmeinc.internal~ -highest_registered_domain:labmeinc.internal))"
 
 alert: debug
 #email: justin@hasecuritysolutions.com

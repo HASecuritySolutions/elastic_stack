@@ -7,13 +7,13 @@ realert:
   minutes: 0
 
 fields:
-  - "highest_registered_domain"
+  - highest_registered_domain
 
 terms_window_size:
   days: 30
 
 use_terms_query: true
-query_key: "highest_registered_domain"
+query_key: highest_registered_domain
 filter:
 - query:
     query_string:
