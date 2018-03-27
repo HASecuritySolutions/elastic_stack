@@ -19,7 +19,7 @@ filter:
     query_string:
         query: "-tags:top-1m"
 
-alert: email
+alert: debug
 #email: justin@hasecuritysolutions.com
 #from_addr: "elastalert@hasecuritysolutions.com"
 #smtp_host: email_gateway_goes_here

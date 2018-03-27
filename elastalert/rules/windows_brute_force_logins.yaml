@@ -14,7 +14,7 @@ filter:
 - term:
     event_id: 4625
 
-alert: email
+alert: debug
 #email: justin@hasecuritysolutions.com
 #from_addr: "elastalert@hasecuritysolutions.com"
 #smtp_host: email_gateway_goes_here
