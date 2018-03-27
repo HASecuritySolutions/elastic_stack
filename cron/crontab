@@ -1,0 +1,15 @@
+# *     *     *   *    *        command to be executed
+# -     -     -   -    -
+# |     |     |   |    |
+# |     |     |   |    +----- day of week (0 - 6) (Sunday=0)
+# |     |     |   +------- month (1 - 12)
+# |     |     +--------- day of        month (1 - 31)
+# |     +----------- hour (0 - 23)
+# +------------- min (0 - 59)
+* * * * * curator --config /etc/curator/curator.yaml /etc/curator/forcemerge.yaml
+* * * * * curator --config /etc/curator/curator.yaml /etc/curator/allocation_logstash.yaml
+* * * * * curator --config /etc/curator/curator.yaml /etc/curator/allocation_winlogbeat.yaml
+* * * * * curator --config /etc/curator/curator.yaml /etc/curator/delete_indices.yaml
+* * * * * curator --config /etc/curator/curator.yaml /etc/curator/delete_indices_bro.yaml
+* * * * * curator --config /etc/curator/curator.yaml /etc/curator/delete_indices_ids.yaml
+* * * * * curator --config /etc/curator/curator.yaml /etc/curator/delete_indices_winlogbeat.yaml
