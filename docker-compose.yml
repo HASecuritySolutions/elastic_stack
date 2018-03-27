@@ -1,7 +1,7 @@
 version: '2.2'
 services:
   elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch:6.2.2
+    image: docker.elastic.co/elasticsearch/elasticsearch-oss:6.2.2
     container_name: elasticsearch
     environment:
       - cluster.name=labmeinc
@@ -21,7 +21,7 @@ services:
     networks:
       - esnet
   kibana:
-    image: docker.elastic.co/kibana/kibana:6.2.2
+    image: docker.elastic.co/kibana/kibana-oss:6.2.2
     container_name: kibana
     depends_on:
       - elasticsearch
@@ -33,7 +33,7 @@ services:
     networks:
       - esnet
   logstash:
-    image: lightforge/logstashwithcommunityplugins
+    image: hasecuritysolutions/logstashoss
     container_name: logstash
     environment:
       - LOG_LEVEL=error
@@ -42,8 +42,8 @@ services:
       - 5045:5045
       - 6050:6050
     volumes:
-      - /opt/Logstash-Pipelines/pipelines.yml:/usr/share/logstash/config/pipelines.yml:ro
-      - /opt/Logstash-Pipelines:/opt/Logstash-Pipelines:ro
+      - /opt/elastic_stack/pipelines.yml:/usr/share/logstash/config/pipelines.yml:ro
+      - /opt/elastic_stack:/opt/elastic_stack:ro
       - /etc/nsm/rules:/etc/nsm/rules:ro
       - ls1:/usr/share/logstash/data
     environment:
@@ -51,14 +51,14 @@ services:
     networks:
       - esnet
   freq_server:
-    image: lightforge/freq_server
+    image: hasecuritysolutions/freq_server
     container_name: freq_server
     ports:
       - 10004:10004
     networks:
       - esnet
   domain_stats:
-    image: lightforge/domain_stats
+    image: hasecuritysolutions/domain_stats
     container_name: domain_stats
     ports:
       - 20000:20000
@@ -73,6 +73,27 @@ services:
       - 9000:9000
     networks:
       - esnet
+  curator:
+    image: bobrik/docker-curator
+    container_name: curator
+    depends_on:
+      - elasticsearch
+    networks:
+      - esnet
+  elastalert:
+    image: ivankrizsan/elastalert
+    container_name: elastalert
+    depends_on:
+      - elasticsearch
+    environment:
+      - ELASTICSEARCH_HOST=elasticsearch
+      - SET_CONTAINER_TIMEZONE=True
+      - CONTAINER_TIMEZONE=America/Chicago
+    volumes:
+      - /opt/elastic_stack/elastalert/rules:/opt/rules
+    networks:
+      - esnet
+    
 
 volumes:
   es1:
