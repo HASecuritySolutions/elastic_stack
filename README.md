@@ -16,5 +16,5 @@ Must have Docker installed. An example of how to do this on an Ubuntu 16.04 syst
 ```bash
 cd /opt
 git clone HASecuritySolutions/elastic_stack
-sudo bash /opt/elastic_stack/scripts/preqequisite.sh
+sudo bash /opt/elastic_stack/scripts/prereq.sh
 ```
