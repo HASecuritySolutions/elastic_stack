@@ -1,4 +1,4 @@
-name: SO San Francisco Not Sending Logs
+name: Host Not Sending Logs
 type: flatline
 index: logstash-bro-*
 
@@ -15,9 +15,9 @@ doc_type: bro_conn
 filter:
 - query:
     query_string:
-       query: 'host:10.140.22.62'
+       query: 'host:192.168.2.101'
 
 alert: debug
 #email: justin@hasecuritysolutions.com
-#from_addr: "elastalert@ebates.com"
-#smtp_host: sf1-mailhost.ebates.int
+#from_addr: "elastalert@hasecuritysolutions.com"
+#smtp_host: email_gateway_goes_here

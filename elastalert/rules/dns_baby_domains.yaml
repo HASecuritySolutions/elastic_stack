@@ -12,9 +12,9 @@ timeframe:
 filter:
 - query:
     query_string:
-        query: "type:dns AND creation_date:[now-30d TO now] -tags:top-1m"
+        query: "event_type:dns AND creation_date:[now-30d TO now] -tags:top-1m"
 
 alert: debug
 #email: justin@hasecuritysolutions.com
-#from_addr: "elastalert@ebates.com"
-#smtp_host: sf1-mailhost.ebates.int
+#from_addr: "elastalert@hasecuritysolutions.com"
+#smtp_host: email_gateway_goes_here

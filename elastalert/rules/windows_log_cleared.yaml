@@ -14,6 +14,6 @@ filter:
     event_id: 1102
 
 alert: email
-email: justin@hasecuritysolutions.com
-from_addr: "elastalert@ebates.com"
-smtp_host: sf1-mailhost.ebates.int
+#email: justin@hasecuritysolutions.com
+#from_addr: "elastalert@hasecuritysolutions.com"
+#smtp_host: email_gateway_goes_here
