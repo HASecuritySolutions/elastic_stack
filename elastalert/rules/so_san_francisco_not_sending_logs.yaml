@@ -1,0 +1,23 @@
+name: SO San Francisco Not Sending Logs
+type: flatline
+index: logstash-bro-*
+
+realert:
+  minutes: 60
+
+threshold: 1
+timeframe:
+  minutes: 15
+
+use_count_query: true
+doc_type: bro_conn
+
+filter:
+- query:
+    query_string:
+       query: 'host:10.140.22.62'
+
+alert: debug
+#email: justin@hasecuritysolutions.com
+#from_addr: "elastalert@ebates.com"
+#smtp_host: sf1-mailhost.ebates.int

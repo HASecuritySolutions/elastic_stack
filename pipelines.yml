@@ -1,6 +1,6 @@
 - pipeline.id: windows
-  path.config: "/opt/elastic_stack/windows"
+  path.config: "/opt/logstash_configs/windows"
 - pipeline.id: security_onion-json
-  path.config: "/opt/elastic_stack/security_onion-json"
+  path.config: "/opt/logstash_configs/security_onion-json"
 #- pipeline.id: bro-tsv
-#  path.config: "/opt/elastic_stack/bro-json"
+#  path.config: "/opt/logstash_configs/bro-json"

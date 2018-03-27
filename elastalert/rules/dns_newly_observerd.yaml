@@ -1,0 +1,27 @@
+name: Newly Accessed Domains
+type: new_term
+index: logstash-bro-*
+doc_type: "dns"
+
+realert:
+  minutes: 0
+
+fields:
+  - "highest_registered_domain"
+
+terms_window_size:
+  days: 30
+
+use_terms_query: true
+query_key: "highest_registered_domain"
+filter:
+#- term:
+#    signature.keyword: "ET SCAN NMAP OS Detection Probe"
+- query:
+    query_string:
+        query: "-tags:top-1m"
+
+alert: email
+email: justin@hasecuritysolutions.com
+from_addr: "secops-elastalert@ebates.com"
+smtp_host: sf1-mailhost.ebates.int

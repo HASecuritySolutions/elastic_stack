@@ -42,8 +42,8 @@ services:
       - 5045:5045
       - 6050:6050
     volumes:
-      - /opt/elastic_stack/pipelines.yml:/usr/share/logstash/config/pipelines.yml:ro
-      - /opt/elastic_stack:/opt/elastic_stack:ro
+      - ./pipelines.yml:/usr/share/logstash/config/pipelines.yml:ro
+      - ./logstash_configs:/opt/logstash_configs:ro
       - /etc/nsm/rules:/etc/nsm/rules:ro
       - ls1:/usr/share/logstash/data
     environment:
@@ -83,7 +83,7 @@ services:
       - SET_CONTAINER_TIMEZONE=True
       - CONTAINER_TIMEZONE=America/Chicago
     volumes:
-      - /opt/elastic_stack/cron/rules:/opt/rules
+      - ./cron/rules:/opt/rules
     networks:
       - esnet
   elastalert:
@@ -96,7 +96,8 @@ services:
       - SET_CONTAINER_TIMEZONE=True
       - CONTAINER_TIMEZONE=America/Chicago
     volumes:
-      - /opt/elastic_stack/elastalert/rules:/opt/rules
+      - ./elastalert/rules:/opt/rules:ro
+      - ./elastalert/elastalert_config.yaml:/opt/config/elastalert_config.yaml:ro
     networks:
       - esnet
     

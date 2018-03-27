@@ -1,0 +1,19 @@
+name: Log cleared
+type: frequency
+index: winlogbeat-*
+
+realert:
+  minutes: 0
+
+num_events: 1
+timeframe:
+  hours: 1
+
+filter:
+- term:
+    event_id: 1102
+
+alert: email
+email: justin@hasecuritysolutions.com
+from_addr: "elastalert@ebates.com"
+smtp_host: sf1-mailhost.ebates.int
