@@ -18,4 +18,6 @@ cd /opt
 git clone HASecuritySolutions/elastic_stack
 sudo bash /opt/elastic_stack/scripts/prereq.sh
 docker-compose up
+# Wait until Elasticsearch is running then run this:
+bash elasticsearch/indexes/import.sh
 ```
