@@ -17,4 +17,5 @@ Must have Docker installed. An example of how to do this on an Ubuntu 16.04 syst
 cd /opt
 git clone HASecuritySolutions/elastic_stack
 sudo bash /opt/elastic_stack/scripts/prereq.sh
+docker-compose up
 ```
