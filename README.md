@@ -15,7 +15,7 @@ Must have Docker installed. An example of how to do this on an Ubuntu 16.04 syst
 
 ```bash
 cd /opt
-git clone HASecuritySolutions/elastic_stack
+sudo git clone https://github.com/HASecuritySolutions/elastic_stack.git
 sudo bash /opt/elastic_stack/scripts/prereq.sh
 docker-compose up
 # Wait until Elasticsearch is running then run this:
