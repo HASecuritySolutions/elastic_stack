@@ -86,9 +86,8 @@ services:
       - SET_CONTAINER_TIMEZONE=True
       - CONTAINER_TIMEZONE=America/Chicago
     volumes:
-      - ./cron/crontab:/etc/crontab:ro
+      - ./cron/elastic-cron:/etc/cron.d/elastic-cron:ro
       - ./curator:/etc/curator:ro
-      - ./cron/logs:/var/log
     networks:
       - esnet
   elastalert:
