@@ -8,14 +8,16 @@ services:
       - node.name=elasticsearch
       - bootstrap.memory_lock=true
       - discovery.type=single-node
-      - "ES_JAVA_OPTS=-Xms4g -Xmx4g"
+      - "ES_JAVA_OPTS=-Xms2g -Xmx2g"
+      - path.repo=/snapshots
     ulimits:
       memlock:
         soft: -1
         hard: -1
-    mem_limit: 8g
+    mem_limit: 4g
     volumes:
-      - es1:/usr/share/elasticsearch/data
+      - ./elasticsearch/es_data:/usr/share/elasticsearch/data
+      - ./elasticsearch/snapshots:/snapshots
     ports:
       - 9200:9200
     networks:
@@ -37,17 +39,18 @@ services:
     container_name: logstash
     environment:
       - LOG_LEVEL=error
+    mem_limit: 2g
     ports:
       - 5044:5044
       - 5045:5045
       - 6050:6050
     volumes:
-      - ./pipelines.yml:/usr/share/logstash/config/pipelines.yml:ro
-      - ./logstash_configs:/opt/logstash_configs:ro
-      - /etc/nsm/rules:/etc/nsm/rules:ro
-      - ls1:/usr/share/logstash/data
+      - ./logstash/pipelines.yml:/usr/share/logstash/config/pipelines.yml:ro
+      - ./logstash/logstash_configs:/opt/logstash_configs:ro
+      - ./logstash/rules:/etc/nsm/rules:ro
+      - ./logstash/persistent_data:/usr/share/logstash/data
     environment:
-      LS_JAVA_OPTS: "-Xmx2g -Xms2g"
+      LS_JAVA_OPTS: "-Xmx1g -Xms1g"
     networks:
       - esnet
   freq_server:
@@ -97,13 +100,6 @@ services:
       - ./elastalert:/etc/elastalert:ro
     networks:
       - esnet
-    
-
-volumes:
-  es1:
-    driver: local
-  ls1:
-    driver: local
 
 networks:
   esnet:
