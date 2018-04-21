@@ -1,15 +1,15 @@
-# *     *     *   *    *        command to be executed
-# -     -     -   -    -
-# |     |     |   |    |
-# |     |     |   |    +----- day of week (0 - 6) (Sunday=0)
-# |     |     |   +------- month (1 - 12)
-# |     |     +--------- day of        month (1 - 31)
-# |     +----------- hour (0 - 23)
+# *  *  *  *  *   username    command-to-be-executed
+# -  -  -  -  -
+# |  |  |  |  |
+# |  |  |  |  +----- day of week (0 - 6) (Sunday=0)
+# |  |  |  +------- month (1 - 12)
+# |  |  +--------- day of        month (1 - 31)
+# |  +----------- hour (0 - 23)
 # +------------- min (0 - 59)
-* * * * * curator --config /etc/curator/curator.yaml /etc/curator/forcemerge.yaml
-* * * * * curator --config /etc/curator/curator.yaml /etc/curator/allocation_logstash.yaml
-* * * * * curator --config /etc/curator/curator.yaml /etc/curator/allocation_winlogbeat.yaml
-* * * * * curator --config /etc/curator/curator.yaml /etc/curator/delete_indices.yaml
-* * * * * curator --config /etc/curator/curator.yaml /etc/curator/delete_indices_bro.yaml
-* * * * * curator --config /etc/curator/curator.yaml /etc/curator/delete_indices_ids.yaml
-* * * * * curator --config /etc/curator/curator.yaml /etc/curator/delete_indices_winlogbeat.yaml
+* * * * * elastic-cron curator --config /etc/curator/curator.yaml /etc/curator/forcemerge.yaml >> /home/elastic-cron/logs/forcemerge.log 2>&1
+* * * * * elastic-cron curator --config /etc/curator/curator.yaml /etc/curator/allocation_logstash.yaml >> /home/elastic-cron/logs/allocation_logstash.log 2>&1
+* * * * * elastic-cron curator --config /etc/curator/curator.yaml /etc/curator/allocation_winlogbeat.yaml >> /home/elastic-cron/logs/allocation_winlogbeat.log 2>&1
+* * * * * elastic-cron curator --config /etc/curator/curator.yaml /etc/curator/delete_indices.yaml >> /home/elastic-cron/logs/delete_indices.log 2>&1
+* * * * * elastic-cron curator --config /etc/curator/curator.yaml /etc/curator/delete_indices_bro.yaml >> /home/elastic-cron/logs/delete_indices_bro.log 2>&1
+* * * * * elastic-cron curator --config /etc/curator/curator.yaml /etc/curator/delete_indices_ids.yaml >> /home/elastic-cron/logs/delete_indices_ids.log 2>&1
+* * * * * elastic-cron curator --config /etc/curator/curator.yaml /etc/curator/delete_indices_winlogbeat.yaml >> /home/elastic-cron/logs/delete_indices_winlogbeat.log 2>&1
