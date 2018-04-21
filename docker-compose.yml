@@ -39,7 +39,7 @@ services:
     container_name: logstash
     environment:
       - LOG_LEVEL=error
-    mem_limit: 2g
+    mem_limit: 4g
     ports:
       - 5044:5044
       - 5045:5045
@@ -50,7 +50,7 @@ services:
       - ./logstash/rules:/etc/nsm/rules:ro
       - ./logstash/persistent_data:/usr/share/logstash/data
     environment:
-      LS_JAVA_OPTS: "-Xmx1g -Xms1g"
+      LS_JAVA_OPTS: "-Xmx2g -Xms1g"
     networks:
       - esnet
   freq_server:
