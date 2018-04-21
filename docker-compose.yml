@@ -86,7 +86,8 @@ services:
       - TZ=America/Chicago
     volumes:
       - /etc/localtime:/etc/localtime:ro
-      - ./cron/elastic-cron:/var/spool/cron/crontabs/elastic-cron:ro
+      - ./cron/elastic-cron:/etc/cron.d/elastic-cron
+      - ./cron/logs:/home/elastic-cron/logs
       - ./curator:/etc/curator:ro
     networks:
       - esnet
