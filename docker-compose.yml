@@ -83,10 +83,10 @@ services:
       - elasticsearch
     environment:
       - ELASTICSEARCH_HOST=elasticsearch
-      - SET_CONTAINER_TIMEZONE=True
-      - CONTAINER_TIMEZONE=America/Chicago
+      - TZ=America/Chicago
     volumes:
-      - ./cron/elastic-cron:/etc/cron.d/elastic-cron:ro
+      - /etc/localtime:/etc/localtime:ro
+      - ./cron/elastic-cron:/var/spool/cron/crontabs/elastic-cron:ro
       - ./curator:/etc/curator:ro
     networks:
       - esnet
