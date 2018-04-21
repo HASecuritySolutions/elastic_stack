@@ -87,6 +87,7 @@ services:
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - ./cron/elastic-cron:/etc/cron.d/elastic-cron
+      - ./cron/custom-cron:/etc/cron.d/elastic-cron
       - ./cron/logs:/home/elastic-cron/logs
       - ./curator:/etc/curator:ro
     networks:

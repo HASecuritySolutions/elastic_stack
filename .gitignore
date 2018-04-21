@@ -1,1 +1,2 @@
 cron/logs/*.log
+cron/custom-cron
