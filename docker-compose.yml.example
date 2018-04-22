@@ -38,7 +38,6 @@ services:
     image: hasecuritysolutions/logstashoss
     container_name: logstash
     environment:
-      - LOG_LEVEL=error
       - ELASTICSEARCH_HOST=elasticsearch
       - pipeline.batch.size=125
       - config.reload.automatic=true
