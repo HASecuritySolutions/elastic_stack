@@ -8,7 +8,7 @@ services:
       - node.name=elasticsearch
       - bootstrap.memory_lock=true
       - discovery.type=single-node
-      - "ES_JAVA_OPTS=-Xms2g -Xmx2g"
+      - ES_JAVA_OPTS="-Xms2g -Xmx2g"
       - path.repo=/snapshots
     ulimits:
       memlock:
@@ -40,6 +40,7 @@ services:
     environment:
       - LOG_LEVEL=error
       - ELASTICSEARCH_HOST=elasticsearch
+      - LS_JAVA_OPTS:"-Xmx2g -Xms1g"
     mem_limit: 4g
     ports:
       - 5044:5044
@@ -50,8 +51,6 @@ services:
       - ./logstash/logstash_configs:/opt/logstash_configs:ro
       - ./logstash/rules:/etc/nsm/rules:ro
       - ./logstash/persistent_data:/usr/share/logstash/data
-    environment:
-      LS_JAVA_OPTS: "-Xmx2g -Xms1g"
     networks:
       - esnet
   freq_server:
