@@ -8,7 +8,7 @@ services:
       - node.name=elasticsearch
       - bootstrap.memory_lock=true
       - discovery.type=single-node
-      - ES_JAVA_OPTS="-Xms2g -Xmx2g"
+      - "ES_JAVA_OPTS=-Xms2g -Xmx2g"
       - path.repo=/snapshots
     ulimits:
       memlock:
@@ -28,8 +28,8 @@ services:
     depends_on:
       - elasticsearch
     environment:
-      SERVER_NAME: kibana
-      ELASTICSEARCH_URL: http://elasticsearch:9200
+      - SERVER_NAME=kibana
+      - ELASTICSEARCH_URL=http://elasticsearch:9200
     ports:
       - 5601:5601
     networks:
@@ -40,7 +40,11 @@ services:
     environment:
       - LOG_LEVEL=error
       - ELASTICSEARCH_HOST=elasticsearch
-      - LS_JAVA_OPTS:"-Xmx2g -Xms1g"
+      - pipeline.batch.size=125
+      - config.reload.automatic=true
+      - config.reload.interval=30s
+      - queue.type=persisted
+      - "LS_JAVA_OPTS:-Xmx2g -Xms1g"
     mem_limit: 4g
     ports:
       - 5044:5044
