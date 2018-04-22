@@ -39,6 +39,7 @@ services:
     container_name: logstash
     environment:
       - LOG_LEVEL=error
+      - ELASTICSEARCH_HOST=elasticsearch
     mem_limit: 4g
     ports:
       - 5044:5044

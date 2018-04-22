@@ -1,2 +1,3 @@
 cron/logs/*.log
 cron/custom-cron
+docker-compose.yml
