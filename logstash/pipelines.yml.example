@@ -2,5 +2,7 @@
   path.config: "/opt/logstash_configs/windows"
 - pipeline.id: security_onion-json
   path.config: "/opt/logstash_configs/security_onion-json"
+- pipeline.id: firewall
+  path.config: "/opt/logstash_configs/firewall"
 #- pipeline.id: bro-tsv
 #  path.config: "/opt/logstash_configs/bro-json"
