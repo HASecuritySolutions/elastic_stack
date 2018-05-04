@@ -1,0 +1,14 @@
+#* * * * * user-job-runs-as command-being-executed
+#| | | | |
+#| | | | |
+#| | | | +---- Day of the Week   (range: 1-7, 1 standing for Monday)
+#| | | +------ Month of the Year (range: 1-12)
+#| | +-------- Day of the Month  (range: 1-31)
+#| +---------- Hour              (range: 0-23)
+#+------------ Minute            (range: 0-59)
+0 0 * * * elastic-cron /usr/local/bin/curator --config /etc/curator/curator.yaml /etc/curator/delete_indices.yaml >> /home/elastic-cron/logs/delete_indices.log 2>&1
+5 0 * * * elastic-cron /usr/local/bin/curator --config /etc/curator/curator.yaml /etc/curator/delete_indices_bro.yaml >> /home/elastic-cron/logs/delete_indices_bro.log 2>&1
+10 0 * * * elastic-cron /usr/local/bin/curator --config /etc/curator/curator.yaml /etc/curator/delete_indices_ids.yaml >> /home/elastic-cron/logs/delete_indices_ids.log 2>&1
+15 0 * * * elastic-cron /usr/local/bin/curator --config /etc/curator/curator.yaml /etc/curator/delete_indices_winlogbeat.yaml >> /home/elastic-cron/logs/delete_indices_winlogbeat.log 2>&1
+0 1 * * * elastic-cron /usr/local/bin/curator --config /etc/curator/curator.yaml /etc/curator/allocation_logstash.yaml >> /home/elastic-cron/logs/allocation_logstash.log 2>&1
+30 1 * * * elastic-cron /usr/local/bin/curator --config /etc/curator/curator.yaml /etc/curator/allocation_winlogbeat.yaml >> /home/elastic-cron/logs/allocation_winlogbeat.log 2>&1
