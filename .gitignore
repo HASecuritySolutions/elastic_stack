@@ -1,5 +1,6 @@
 cron/logs/*.log
 cron/custom-cron
-curator/curator.yaml
+curator/*.yaml
+elastalert/config.yaml
 logstash/pipelines.yml
 docker-compose.yml
