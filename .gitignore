@@ -1,3 +1,4 @@
 cron/logs/*.log
 cron/custom-cron
+logstash/pipelines.yml
 docker-compose.yml
