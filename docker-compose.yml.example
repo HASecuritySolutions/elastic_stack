@@ -1,8 +1,9 @@
 version: '2.2'
 services:
   elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch-oss:6.2.4
+    image: docker.elastic.co/elasticsearch/elasticsearch:6.2.4
     container_name: elasticsearch
+    restart: always
     environment:
       - cluster.name=labmeinc
       - node.name=elasticsearch
@@ -23,8 +24,9 @@ services:
     networks:
       - esnet
   kibana:
-    image: hasecuritysolutions/kibanaoss
+    image: hasecuritysolutions/kibana
     container_name: kibana
+    restart: always
     depends_on:
       - elasticsearch
     environment:
@@ -35,8 +37,9 @@ services:
     networks:
       - esnet
   logstash:
-    image: hasecuritysolutions/logstashoss
+    image: hasecuritysolutions/logstash
     container_name: logstash
+    restart: always
     environment:
       - ELASTICSEARCH_HOST=elasticsearch
       - pipeline.batch.size=125
@@ -59,6 +62,7 @@ services:
   freq_server:
     image: hasecuritysolutions/freq_server
     container_name: freq_server
+    restart: always
     ports:
       - 10004:10004
     networks:
@@ -66,6 +70,7 @@ services:
   domain_stats:
     image: hasecuritysolutions/domain_stats
     container_name: domain_stats
+    restart: always
     ports:
       - 20000:20000
     networks:
@@ -82,6 +87,7 @@ services:
   elastic_cron:
     image: hasecuritysolutions/elastic_cron
     container_name: elastic_cron
+    restart: always
     depends_on:
       - elasticsearch
     environment:
@@ -98,6 +104,7 @@ services:
   elastalert:
     image: hasecuritysolutions/elastalert
     container_name: elastalert
+    restart: always
     depends_on:
       - elasticsearch
     volumes:
