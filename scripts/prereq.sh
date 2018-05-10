@@ -21,8 +21,9 @@ else
   echo "Curl is already installed"
 fi
 
-if [ -f /opt/elastic_stack ];
+if [ -d /opt/elastic_stack ];
 then
+  echo "Cloning elastic_stack repo"
   cd /opt
   git clone https://github.com/HASecuritySolutions/elastic_stack.git
   chown -R ${USER} /opt/elastic_stack
