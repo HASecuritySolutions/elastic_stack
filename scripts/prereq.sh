@@ -71,3 +71,4 @@ else
   sudo sysctl -w vm.max_map_count=262144
   echo "vm.max_map_count=262144" | sudo tee -a /etc/sysctl.conf
 fi
+chown -R ${SUDO_USER}: /opt/elastic_stack
