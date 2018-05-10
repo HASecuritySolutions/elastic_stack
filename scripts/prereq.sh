@@ -5,13 +5,32 @@ if [ $VERSION = "18.04" ]; then
 else
   DOCKER="docker-ce"
 fi
+apt update
+if dpkg -l | grep -q git
+then
+  echo "Git is already installed"
+else
+  echo "Installing git"
+  apt install -y git
+fi
+if dpkg -l | grep -q curl
+then
+  echo "Curl is already installed"
+else
+  echo "Installing curl"
+  apt install -y curl
+fi
+if [ -f /opt/elastic_stack ];
+then
+  cd /opt
+  git clone https://github.com/HASecuritySolutions/elastic_stack.git
+  chown -R ${USER} /opt/elastic_stack
+fi
 if grep -q 'deb \[arch=amd64\] https://download.docker.com/linux/ubuntu' /etc/apt/sources.list
 then
   echo "Docker software repository is already installed"
 else
   echo "Docker software repository is not installed. Installing"
-  apt update
-  apt install -y curl
   curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
   sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
   sudo apt-get update
@@ -38,8 +57,6 @@ then
   echo "Docker Compose is already installed"
 else
   echo "Installing Docker Compose"
-  apt update
-  apt install curl
   sudo curl -L https://github.com/docker/compose/releases/download/1.19.0/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
   sudo chmod +x /usr/local/bin/docker-compose
 fi
