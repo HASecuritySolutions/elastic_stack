@@ -48,12 +48,12 @@ then
 else
   echo "Docker is already installed"
 fi
-if grep docker /etc/group | grep -q ${USER}
+if grep docker /etc/group | grep -q ${SUDO_USER}
 then
   echo "Current user already member of docker group"
 else
   echo "Adding current user to docker group"
-  sudo usermod -aG docker ${USER}
+  sudo usermod -aG docker ${SUDO_USER}
 fi
 if [ -f /usr/local/bin/docker-compose ];
 then
