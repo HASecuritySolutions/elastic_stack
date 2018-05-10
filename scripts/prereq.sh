@@ -6,14 +6,14 @@ else
   DOCKER="docker-ce"
 fi
 apt update
-if dpkg -s git | grep -q "not installed"
+if [ $(dpkg-query -W -f='${Status}' git 2>/dev/null | grep -c "ok installed") -eq 0 ];
 then
   echo "Installing git"
   apt install -y git
 else
   echo "Git is already installed"
 fi
-if dpkg -s curl | grep -q "not installed"
+if [ $(dpkg-query -W -f='${Status}' curl 2>/dev/null | grep -c "ok installed") -eq 0 ];
 then
   echo "Installing curl"
   apt install -y curl
@@ -40,7 +40,7 @@ else
     echo "Docker software repository is now installed"
   fi
 fi
-if dpkg -s docker | grep -q "not installed"
+if [ $(dpkg-query -W -f='${Status}' docker 2>/dev/null | grep -c "ok installed") -eq 0 ];
 then
   echo "Installing docker"
   sudo apt-get install -y $DOCKER
