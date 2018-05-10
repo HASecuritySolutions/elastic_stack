@@ -6,20 +6,21 @@ else
   DOCKER="docker-ce"
 fi
 apt update
-if dpkg -l | grep -q git
+if dpkg -s git | grep -q "not installed"
 then
-  echo "Git is already installed"
-else
   echo "Installing git"
   apt install -y git
-fi
-if dpkg -l | grep -q curl
-then
-  echo "Curl is already installed"
 else
+  echo "Git is already installed"
+fi
+if dpkg -s curl | grep -q "not installed"
+then
   echo "Installing curl"
   apt install -y curl
+else
+  echo "Curl is already installed"
 fi
+
 if [ -f /opt/elastic_stack ];
 then
   cd /opt
@@ -39,11 +40,12 @@ else
     echo "Docker software repository is now installed"
   fi
 fi
-if dpkg -l | grep -q $DOCKER
+if dpkg -s docker | grep -q "not installed"
 then
-  echo "Docker is already installed"
-else
+  echo "Installing docker"
   sudo apt-get install -y $DOCKER
+else
+  echo "Docker is already installed"
 fi
 if grep docker /etc/group | grep -q ${USER}
 then
