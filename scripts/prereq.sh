@@ -26,7 +26,7 @@ then
   echo "Cloning elastic_stack repo"
   cd /opt
   git clone https://github.com/HASecuritySolutions/elastic_stack.git
-  chown -R ${USER} /opt/elastic_stack
+  chown -R ${SUDO_USER} /opt/elastic_stack
 fi
 if grep -q 'deb \[arch=amd64\] https://download.docker.com/linux/ubuntu' /etc/apt/sources.list
 then
