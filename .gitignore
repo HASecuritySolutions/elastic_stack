@@ -9,5 +9,5 @@ logstash/persistent_data/*
 logstash/pipelines.yml
 logstash/pipelines*.yml
 logstash/logstash_configs/custom*
-logstash/logstash_configs/*custom*
+logstash/logstash_configs/**/*custom*
 docker-compose.yml
