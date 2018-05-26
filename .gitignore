@@ -8,6 +8,6 @@ elasticsearch/es_data/*
 logstash/persistent_data/*
 logstash/pipelines.yml
 logstash/pipelines*.yml
-logstash/logstash_configs/custom*
-logstash/logstash_configs/**/*custom*
+logstash/logstash_configs/**/*custom*.conf
+logstash/logstash_configs/*custom*/*custom*
 docker-compose.yml
