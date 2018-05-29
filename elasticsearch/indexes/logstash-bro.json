@@ -71,7 +71,7 @@
               }
             }
           },
-          "source_geoip": {
+          "source_geo": {
             "dynamic": true,
             "properties": {
               "ip": {
@@ -88,7 +88,7 @@
               }
             }
           },
-          "destination_geoip": {
+          "destination_geo": {
             "dynamic": true,
             "properties": {
               "ip": {
