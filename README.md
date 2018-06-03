@@ -14,9 +14,9 @@ Contain scripts for easy deployment to production systems
 Must have Docker installed. An example of how to do this on an Ubuntu 16.04 system is as below:
 
 ```bash
-cd /opt
-sudo apt-get install -y git
-sudo git clone https://github.com/HASecuritySolutions/elastic_stack.git
+cd ~
+sudo apt-get install -y wget
+wget https://github.com/HASecuritySolutions/elastic_stack/raw/master/scripts/prereq.sh
 sudo bash /opt/elastic_stack/scripts/prereq.sh
 sudo cp /opt/elastic_stack/docker-compose.yml.example /opt/elastic_stack/docker-compose.yml
 docker-compose up
