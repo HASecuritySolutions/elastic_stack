@@ -18,9 +18,8 @@ cd ~
 sudo apt-get install -y wget
 wget https://github.com/HASecuritySolutions/elastic_stack/raw/master/scripts/prereq.sh
 sudo bash /opt/elastic_stack/scripts/prereq.sh
-sudo cp /opt/elastic_stack/docker-compose.yml.example /opt/elastic_stack/docker-compose.yml
+sudo bash /opt/elastic_stack/scripts/initialize.sh
 docker-compose up
 # Wait until Elasticsearch is running then run this:
 bash elasticsearch/indexes/import.sh
-sudo bash /opt/elastic_stack/scripts/initialize.sh
 ```
