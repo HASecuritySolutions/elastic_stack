@@ -24,7 +24,7 @@ services:
     networks:
       - esnet
   kibana:
-    image: hasecuritysolutions/kibana
+    image: hasecuritysolutions/kibana:v6.2.4
     container_name: kibana
     restart: always
     depends_on:
@@ -37,7 +37,7 @@ services:
     networks:
       - esnet
   logstash:
-    image: hasecuritysolutions/logstash
+    image: hasecuritysolutions/logstash:v6.2.4
     container_name: logstash
     restart: always
     environment:
@@ -60,7 +60,7 @@ services:
     networks:
       - esnet
   freq_server:
-    image: hasecuritysolutions/freq_server
+    image: hasecuritysolutions/freq_server:v1.0
     container_name: freq_server
     restart: always
     ports:
@@ -68,7 +68,7 @@ services:
     networks:
       - esnet
   domain_stats:
-    image: hasecuritysolutions/domain_stats
+    image: hasecuritysolutions/domain_stats:v1.0
     container_name: domain_stats
     restart: always
     ports:
@@ -76,7 +76,7 @@ services:
     networks:
       - esnet
   cerebro:
-    image: dylanmei/cerebro
+    image: hasecuritysolutions/cerebro:v1.0
     container_name: cerebro
     depends_on:
       - elasticsearch
@@ -102,7 +102,7 @@ services:
     networks:
       - esnet
   elastalert:
-    image: hasecuritysolutions/elastalert
+    image: hasecuritysolutions/elastalert:v1.0
     container_name: elastalert
     restart: always
     depends_on:
