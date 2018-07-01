@@ -55,6 +55,7 @@ services:
     volumes:
       - ./logstash/pipelines.yml:/usr/share/logstash/config/pipelines.yml:ro
       - ./logstash/logstash_configs:/opt/logstash_configs:ro
+      - ./logstash/translate:/opt/elastic_stack/logstash/translate:ro
       - ./logstash/rules:/etc/nsm/rules:ro
       - ./logstash/persistent_data:/usr/share/logstash/data
     networks:
