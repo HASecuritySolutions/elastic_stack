@@ -1,7 +1,7 @@
 #!/bin/bash
 VERSION=`cat /etc/lsb-release | grep RELEASE | cut -d"=" -f2`
 if [ $VERSION = "18.04" ]; then
-  DOCKER="docker.io"
+  DOCKER="docker-ce"
 else
   DOCKER="docker-ce"
 fi
