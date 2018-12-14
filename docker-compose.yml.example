@@ -1,7 +1,7 @@
 version: '2.2'
 services:
   elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch:6.3.0
+    image: docker.elastic.co/elasticsearch/elasticsearch:6.5.2
     container_name: elasticsearch
     restart: always
     environment:
@@ -23,8 +23,13 @@ services:
       - 9200:9200
     networks:
       - esnet
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "200k"
+        max-file: "10"
   kibana:
-    image: docker.elastic.co/kibana/kibana:6.3.0
+    image: docker.elastic.co/kibana/kibana:6.5.2
     container_name: kibana
     restart: always
     depends_on:
@@ -36,8 +41,13 @@ services:
       - 5601:5601
     networks:
       - esnet
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "200k"
+        max-file: "10"
   logstash:
-    image: hasecuritysolutions/logstash:v6.3.0
+    image: hasecuritysolutions/logstash:v6.5.2
     container_name: logstash
     restart: always
     environment:
@@ -60,6 +70,11 @@ services:
       - ./logstash/persistent_data:/usr/share/logstash/data
     networks:
       - esnet
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "200k"
+        max-file: "10"
   freq_server:
     image: hasecuritysolutions/freq_server:v1.0
     container_name: freq_server
@@ -68,6 +83,11 @@ services:
       - 10004:10004
     networks:
       - esnet
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "200k"
+        max-file: "10"
   domain_stats:
     image: hasecuritysolutions/domain_stats:v1.0
     container_name: domain_stats
@@ -76,6 +96,11 @@ services:
       - 20000:20000
     networks:
       - esnet
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "200k"
+        max-file: "10"
   cerebro:
     image: hasecuritysolutions/cerebro:v1.0
     container_name: cerebro
@@ -85,23 +110,11 @@ services:
       - 9000:9000
     networks:
       - esnet
-  elastic_cron:
-    image: hasecuritysolutions/elastic_cron
-    container_name: elastic_cron
-    restart: always
-    depends_on:
-      - elasticsearch
-    environment:
-      - ELASTICSEARCH_HOST=elasticsearch
-      - TZ=America/Chicago
-    volumes:
-      - /etc/localtime:/etc/localtime:ro
-      - ./cron/elastic-cron:/etc/cron.d/elastic-cron
-      - ./cron/custom-cron:/etc/cron.d/custom-cron
-      - ./cron/logs:/home/elastic-cron/logs
-      - ./curator:/etc/curator:ro
-    networks:
-      - esnet
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "200k"
+        max-file: "10"
   elastalert:
     image: hasecuritysolutions/elastalert:v1.0
     container_name: elastalert
@@ -112,6 +125,11 @@ services:
       - ./elastalert:/etc/elastalert:ro
     networks:
       - esnet
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "200k"
+        max-file: "10"
 
 networks:
   esnet:
