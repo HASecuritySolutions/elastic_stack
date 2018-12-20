@@ -1,0 +1,2 @@
+- pipeline.id: monitoring
+  path.config: "/opt/elastic_stack/logstash/logstash_configs/monitoring"
