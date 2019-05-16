@@ -1,0 +1,166 @@
+version: '3.7'
+services:
+  master:
+    image: hasecuritysolutions/elasticsearch-readonlyrest:6.7.0-gcs
+    env_file: env/es_master.env
+    volumes:
+      - /cloud/cloud_configs/client/HA/elasticsearch/readonlyrest.yml:/usr/share/elasticsearch/config/readonlyrest.yml
+    networks:
+      - customer
+    deploy:
+      replicas: 3
+      update_config:
+        parallelism: 1
+        delay: 10s
+        order: stop-first
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+      placement:
+        constraints: [node.role == manager]
+        preferences:
+          - spread: node.role.manager
+  ssd1:
+    image: hasecuritysolutions/elasticsearch-readonlyrest:6.7.0-gcs
+    env_file: env/es_hot.env
+    volumes:
+      - /cloud/cloud_configs/client/HA/elasticsearch/readonlyrest.yml:/usr/share/elasticsearch/config/readonlyrest.yml
+      - /ssd/HA_ssd:/usr/share/elasticsearch/data
+    networks:
+      - customer
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+      placement:
+        constraints: [node.hostname == cloud01a] 
+  ssd2:
+    image: hasecuritysolutions/elasticsearch-readonlyrest:6.7.0-gcs
+    env_file: env/es_hot.env
+    volumes:
+      - /cloud/cloud_configs/client/HA/elasticsearch/readonlyrest.yml:/usr/share/elasticsearch/config/readonlyrest.yml
+      - /ssd/HA_ssd:/usr/share/elasticsearch/data
+    networks:
+      - customer
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+      placement:
+        constraints: [node.hostname == cloud01b]
+  sata1:
+    image: hasecuritysolutions/elasticsearch-readonlyrest:6.7.0-gcs
+    env_file: env/es_warm.env
+    volumes:
+      - /cloud/cloud_configs/client/HA/elasticsearch/readonlyrest.yml:/usr/share/elasticsearch/config/readonlyrest.yml
+      - /sata/HA_sata:/usr/share/elasticsearch/data
+    networks:
+      - customer
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+      placement:
+        constraints: [node.hostname == cloud01a]
+  sata2:
+    image: hasecuritysolutions/elasticsearch-readonlyrest:6.7.0-gcs
+    env_file: env/es_warm.env
+    volumes:
+      - /cloud/cloud_configs/client/HA/elasticsearch/readonlyrest.yml:/usr/share/elasticsearch/config/readonlyrest.yml
+      - /sata/HA_sata:/usr/share/elasticsearch/data
+    networks:
+      - customer
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+      placement:
+        constraints: [node.hostname == cloud01b]
+  kibana:
+    image: hasecuritysolutions/kibana-readonlyrest:6.7.0
+    ports:
+      - 5601:5601
+    volumes:
+      - /cloud/cloud_configs/client/HA/kibana:/opt/kibana/config:ro
+    networks:
+      - customer
+    deploy:
+      replicas: 2
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+      placement:
+        constraints: [node.role == manager]
+        preferences:
+          - spread: node.role.manager
+  cerebro:
+    image: hasecuritysolutions/cerebro:0.8.3
+    volumes:
+      - /cloud/cloud_configs/client/HA/cerebro/application.conf:/opt/cerebro/conf/application.conf:ro
+    ports:
+      - 9000:9000
+    networks:
+      - customer
+    deploy:
+      replicas: 2
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+      placement:
+        constraints: [node.role == manager]
+        preferences:
+          - spread: node.role.manager
+  freq_server:
+    image: hasecuritysolutions/freq_server:2.0
+    networks:
+      - customer
+    deploy:
+      replicas: 2
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+      placement:
+        constraints: [node.role == worker]
+        preferences:
+          - spread: node.role.worker
+  domain_stats:
+    image: hasecuritysolutions/domain_stats:2.0
+    ports:
+      - 20000:20000
+    networks:
+      - customer
+    deploy:
+      replicas: 2
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+      placement:
+        constraints: [node.role == worker]
+        preferences:
+          - spread: node.role.worker
+
+networks:
+  customer:
+    driver: overlay
