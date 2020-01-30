@@ -1,10 +1,5 @@
 #!/bin/bash
 VERSION=`cat /etc/lsb-release | grep RELEASE | cut -d"=" -f2`
-if [ $VERSION = "18.04" ]; then
-  DOCKER="docker-ce"
-else
-  DOCKER="docker-ce"
-fi
 apt update
 if [ $(dpkg-query -W -f='${Status}' git 2>/dev/null | grep -c "ok installed") -eq 0 ];
 then
@@ -21,13 +16,6 @@ else
   echo "Curl is already installed"
 fi
 
-if [ ! -d /opt/elastic_stack ];
-then
-  echo "Cloning elastic_stack repo"
-  cd /opt
-  git clone https://github.com/HASecuritySolutions/elastic_stack.git
-  chown -R ${SUDO_USER} /opt/elastic_stack
-fi
 if grep -q 'deb \[arch=amd64\] https://download.docker.com/linux/ubuntu' /etc/apt/sources.list
 then
   echo "Docker software repository is already installed"
@@ -44,7 +32,10 @@ fi
 if [ $(dpkg-query -W -f='${Status}' docker 2>/dev/null | grep -c "ok installed") -eq 0 ];
 then
   echo "Installing docker"
-  sudo apt-get install -y $DOCKER
+  sudo apt-get install -y docker-ce
+  sudo sed -i '/LimitCORE=infinity/ a LimitMEMLOCK=infinity' /lib/systemd/system/docker.service
+  sudo systemctl daemon-reload
+  sudo systemctl enable docker.service
 else
   echo "Docker is already installed"
 fi
@@ -71,4 +62,25 @@ else
   sudo sysctl -w vm.max_map_count=262144
   echo "vm.max_map_count=262144" | sudo tee -a /etc/sysctl.conf
 fi
-chown -R ${SUDO_USER}: /opt/elastic_stack
+if grep -q 'docker - memlock unlimited' /etc/security/limits.conf
+then
+  echo "Security limits already configured"
+else
+  echo "Setting security limits for elasticsearch, root, and docker"
+  echo "elasticsearch - nofile 65535" | sudo tee -a /etc/security/limits.conf
+  echo "elasticsearch - memlock unlimited" | sudo tee -a /etc/security/limits.conf
+  echo "root - memlock unlimited" | sudo tee -a /etc/security/limits.conf
+  echo "elasticsearch soft memlock unlimited" | sudo tee -a /etc/security/limits.conf
+  echo "elasticsearch hard memlock unlimited" | sudo tee -a /etc/security/limits.conf
+  echo "docker - nofile 65535" | sudo tee -a /etc/security/limits.conf
+  echo "docker - memlock unlimited" | sudo tee -a /etc/security/limits.conf
+  echo "docker soft memlock unlimited" | sudo tee -a /etc/security/limits.conf
+  echo "docker hard memlock unlimited" | sudo tee -a /etc/security/limits.conf
+fi
+if [ ! -d /opt/elastic_stack ];
+then
+  echo "Cloning elastic_stack repo"
+  cd /opt
+  git clone https://github.com/HASecuritySolutions/elastic_stack.git
+  chown -R ${SUDO_USER} /opt/elastic_stack
+fi
