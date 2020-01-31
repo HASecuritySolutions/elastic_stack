@@ -1,5 +1,7 @@
 #!/bin/bash
-VERSION=`cat /etc/lsb-release | grep RELEASE | cut -d"=" -f2`
+VERSION=`cat /etc/lsb-release | grep DISTRIB_CODENAME | cut -d"=" -f2`
+SUDOUSER=`logname`
+MODEL=`sudo dmidecode -t system | grep "Product Name" | cut -d":" -f2 | sed 's/^ *//g'`
 apt update
 if [ $(dpkg-query -W -f='${Status}' git 2>/dev/null | grep -c "ok installed") -eq 0 ];
 then
@@ -15,6 +17,13 @@ then
 else
   echo "Curl is already installed"
 fi
+if [ $(dpkg-query -W -f='${Status}' nfs-common 2>/dev/null | grep -c "ok installed") -eq 0 ];
+then
+  echo "Installing nfs-common"
+  apt install -y nfs-common
+else
+  echo "NFS Common is already installed"
+fi
 
 if grep -q 'deb \[arch=amd64\] https://download.docker.com/linux/ubuntu' /etc/apt/sources.list
 then
@@ -29,7 +38,7 @@ else
     echo "Docker software repository is now installed"
   fi
 fi
-if [ $(dpkg-query -W -f='${Status}' docker 2>/dev/null | grep -c "ok installed") -eq 0 ];
+if [ $(dpkg-query -W -f='${Status}' docker-ce 2>/dev/null | grep -c "ok installed") -eq 0 ];
 then
   echo "Installing docker"
   sudo apt-get install -y docker-ce
@@ -39,12 +48,12 @@ then
 else
   echo "Docker is already installed"
 fi
-if grep docker /etc/group | grep -q ${SUDO_USER}
+if grep docker /etc/group | grep -q ${SUDOUSER}
 then
   echo "Current user already member of docker group"
 else
   echo "Adding current user to docker group"
-  sudo usermod -aG docker ${SUDO_USER}
+  sudo usermod -aG docker ${SUDOUSER}
 fi
 if [ -f /usr/local/bin/docker-compose ];
 then
@@ -77,10 +86,10 @@ else
   echo "docker soft memlock unlimited" | sudo tee -a /etc/security/limits.conf
   echo "docker hard memlock unlimited" | sudo tee -a /etc/security/limits.conf
 fi
-if [ ! -d /opt/elastic_stack ];
+if grep -q 'swap' /etc/fstab
 then
-  echo "Cloning elastic_stack repo"
-  cd /opt
-  git clone https://github.com/HASecuritySolutions/elastic_stack.git
-  chown -R ${SUDO_USER} /opt/elastic_stack
+  echo 'Disabling swap'
+  sudo sed -i '/swap/d' /etc/fstab
+else
+  echo 'Swap has already been disabled'
 fi
