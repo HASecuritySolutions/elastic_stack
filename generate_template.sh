@@ -6,8 +6,8 @@ PORT=PASSWORDGOESHERE
 SHARDPERXGB=50
 REPLICAENABLED=1
 CACERT=/opt/elastic_stack/ca/ca.crt
-HEADERFILE=/opt/elastic_stack/elasticsearch/templates/header.template.json
-FOOTERFILE=/opt/elastic_stack/elasticsearch/templates/footer.template.json
+HEADERFILE=/opt/elastic_stack/elasticsearch/header.template.json
+FOOTERFILE=/opt/elastic_stack/elasticsearch/footer.template.json
 PURGEOLDTEMPLATE=1
 ceil() {
   echo "define ceil (x) {if (x<0) {return x/1} \
