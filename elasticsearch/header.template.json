@@ -1,0 +1,55 @@
+{
+  "order": 0,
+  "version": 60001,
+  "index_patterns": [
+    "INDEXNAME-*"
+  ],
+  "settings": {
+    "index": {
+      "routing": {
+        "allocation": {
+          "require": {
+            "box_type": "hot"
+          }
+        }
+      },
+      "mapping": {
+        "total_fields": {
+          "limit": "15000"
+        }
+      },
+      "refresh_interval": "30s",
+      "number_of_shards": "NUMBERSHARDS",
+      "number_of_replicas": "NUMBERREPLICAS"
+    }
+  },
+  "mappings": {
+    "dynamic_templates": [
+      {
+        "message_field": {
+          "path_match": "message",
+          "mapping": {
+            "norms": false,
+            "type": "text"
+          },
+          "match_mapping_type": "string"
+        }
+      },
+      {
+        "string_fields": {
+          "mapping": {
+            "norms": false,
+            "type": "text",
+            "fields": {
+              "keyword": {
+                "ignore_above": 256,
+                "type": "keyword"
+              }
+            }
+          },
+          "match_mapping_type": "string",
+          "match": "*"
+        }
+      }
+    ],
+    "properties":
